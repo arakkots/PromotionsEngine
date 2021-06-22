@@ -30,7 +30,7 @@ namespace PromotionsEngine
                     .ToList();
                 decimal originalPrice = ord.Products.Sum(x => x.Price);
                 decimal promotionalPrice = promotionalPrices.Sum();
-                Console.WriteLine($"OrderID: {ord.OrderId} => Original price: {originalPrice.ToString("0.00")} | Discount: {promotionalPrice.ToString("0.00")} | Final price: {(originalPrice - promotionalPrice).ToString("0.00")}");
+                Console.WriteLine($"OrderID: {ord.OrderId} => Original price: {originalPrice:0.00} | Discount: {promotionalPrice:0.00} | Final price: {originalPrice - promotionalPrice:0.00}");
             }
         }
     }
@@ -73,24 +73,14 @@ namespace PromotionsEngine
         public Product(string id)
         {
             this.Id = id;
-            switch (id)
+            this.Price = this.Id switch
             {
-                case "A":
-                    this.Price = 50m;
-
-                    break;
-                case "B":
-                    this.Price = 30m;
-
-                    break;
-                case "C":
-                    this.Price = 20m;
-
-                    break;
-                case "D":
-                    this.Price = 15m;
-                    break;
-            }
+                "A" => 50m,
+                "B" => 30m,
+                "C" => 20m,
+                "D" => 15m,
+                _ => 0m
+            };
         }
     }
 
